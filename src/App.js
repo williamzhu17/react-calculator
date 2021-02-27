@@ -15,12 +15,6 @@ function App() {
     const targetName = event.target.name;
     let value = "";
 
-    console.log(event);
-
-    // if (event.nativeEvent.data === "e") {
-    //   return;
-    // }
-
     //Determines if change is for operator or for numbers
     if (targetName === "operator") {
       value = event.target.value;
