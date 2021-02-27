@@ -66,21 +66,52 @@ function App() {
     });
   }
 
+  //Resets form and state values
+  function handleReset() {
+    setCalculator({
+      ...calculator, 
+      "firstNumber" : "",
+      "secondNumber" : "",
+      "operator" : "add",
+      "result" : "",
+    });
+  }
+
+  //Checks if inputted character is a number
+  function checkForInvalidCharacters(event) {
+    const invalidCharacters = [
+      "-", 
+      "+", 
+      "e", 
+    ]
+    if (invalidCharacters.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   return(
     <div>
       <h2>Calculator</h2>
 
-      <div class="elements">
+      <div className="elements">
         <form onSubmit={handleSubmit}>
 
-          <div class="elements">
-            <label htmlFor="firstNameId">Enter in First Number: </label>
-            <input type="number" id="firstNameId" name="firstNumber" class="calculatorInput" step="0.01" onChange={handleChange} />
+          <div className="elements">
+            <label htmlFor="firstNumberId">Enter in First Number: </label>
+            <input 
+              type="number" 
+              id="firstNumberId" 
+              name="firstNumber" 
+              className="calculatorInput" 
+              step="0.01" 
+              value={calculator.firstNumber} 
+              onChange={handleChange}
+              onKeyDown={checkForInvalidCharacters} />
           </div>
           
-          <div class="elements">
+          <div className="elements">
             <label htmlFor="operatorId">Choose an Operator: </label>
-            <select id="operatorId" name="operator" class="calculatorInput" onChange={handleChange}>
+            <select id="operatorId" name="operator" className="calculatorInput" onChange={handleChange}>
               <option value="add">+</option>
               <option value="subtract">-</option>
               <option value="multiply">*</option>
@@ -88,20 +119,28 @@ function App() {
             </select>
           </div>
 
-          <div class="elements">
+          <div className="elements">
             <label htmlFor="secondNumberId">Enter in Second Number: </label>
-            <input type="number" id="secondNumberId" name="secondNumber" class="calculatorInput" step="0.01" onChange={handleChange} />
+            <input 
+              type="number" 
+              id="secondNumberId" 
+              name="secondNumber" 
+              className="calculatorInput" 
+              step="0.01" 
+              value={calculator.secondNumber} 
+              onChange={handleChange}
+              onKeyDown={checkForInvalidCharacters} />
           </div>
 
-          <div class="elements">
-            <input type="reset" id="resetButtonId" name="resetButton" />
+          <div className="elements">
+            <input type="reset" id="resetButtonId" name="resetButton" onClick={handleReset} />
             <input type="submit" id="submitButtonId" name="submitButton" />
           </div>
 
         </form>
       </div>
 
-      <div class="elements" id="resultDivId">
+      <div className="elements" id="resultDivId">
           <span id="resultId" name="result">Your result is: {calculator.result}</span>
       </div>
     </div>
